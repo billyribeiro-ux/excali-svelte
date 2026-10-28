@@ -1,0 +1,15 @@
+{
+  "name": "@svelte-draw/utils",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "roughjs": "4.6.4"
+  },
+  "description": "Excalidraw utility functions"
+}

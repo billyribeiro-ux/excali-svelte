@@ -1,0 +1,22 @@
+{
+  "name": "@svelte-draw/common",
+  "version": "0.18.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@braintree/sanitize-url": "6.0.2",
+    "es6-promise-pool": "2.5.0",
+    "nanoid": "3.3.3",
+    "roughjs": "4.6.4",
+    "tinycolor2": "1.6.0"
+  },
+  "devDependencies": {
+    "@types/tinycolor2": "1.4.6"
+  },
+  "description": "Excalidraw common functions, constants, etc."
+}

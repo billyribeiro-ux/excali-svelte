@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, shrink-to-fit=no"
+    />
+    <meta name="referrer" content="origin" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#121212" />
+
+    <meta name="description" content="svelte-draw is a virtual whiteboard that lets you sketch diagrams with a hand-drawn look and feel." />
+    <meta property="og:site_name" content="svelte-draw" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="svelte-draw — a hand-drawn whiteboard" />
+    <meta property="og:description" content="svelte-draw is a virtual whiteboard that lets you sketch diagrams with a hand-drawn look and feel." />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="icon" type="image/svg+xml" href="%sveltekit.assets%/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%sveltekit.assets%/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%sveltekit.assets%/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%sveltekit.assets%/favicon-16x16.png" />
+    <link rel="manifest" href="%sveltekit.assets%/manifest.webmanifest" />
+
+    <!-- to minimize white flash on load when the user has dark mode enabled -->
+    <script>
+      try {
+        // fonts and other bundled assets are served from this origin
+        window.EXCALIDRAW_ASSET_PATH = window.origin;
+
+        const stored = window.localStorage.getItem("excalidraw-theme");
+        const theme =
+          stored === "system"
+            ? window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light"
+            : stored || "light";
+        document.documentElement.classList.toggle("dark", theme === "dark");
+      } catch (e) {
+        console.error("Error setting dark mode", e);
+      }
+    </script>
+    <style>
+      html.dark {
+        background-color: #121212;
+        color: #fff;
+      }
+      body,
+      html {
+        margin: 0;
+        -webkit-text-size-adjust: 100%;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .visually-hidden {
+        position: absolute !important;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        clip: rect(1px, 1px, 1px, 1px);
+        white-space: nowrap;
+        user-select: none;
+      }
+      #svelte-draw-root {
+        height: 100%;
+        -webkit-touch-callout: none;
+        user-select: none;
+      }
+      @media screen and (min-width: 1200px) {
+        #svelte-draw-root {
+          -webkit-touch-callout: default;
+          user-select: auto;
+        }
+      }
+    </style>
+    <script>
+      // setting this so that library installation reuses this window tab
+      window.name = "_svelte_draw";
+    </script>
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <header>
+      <h1 class="visually-hidden">svelte-draw</h1>
+    </header>
+    <div id="svelte-draw-root" style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>

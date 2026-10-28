@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "proseWrap": "never",
+  "trailingComma": "all",
+  "plugins": ["prettier-plugin-svelte"],
+  "overrides": [
+    { "files": ["*.json"], "options": { "printWidth": 256 } },
+    { "files": ["*.svelte"], "options": { "parser": "svelte" } }
+  ]
+}

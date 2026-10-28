@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "rootDir": "./",
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vitest/globals", "@testing-library/jest-dom/vitest"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "@svelte-draw/common": ["./packages/common/src/index.ts"],
+      "@svelte-draw/common/*": ["./packages/common/src/*"],
+      "@svelte-draw/editor": ["./packages/editor/index.ts"],
+      "@svelte-draw/editor/*": ["./packages/editor/*"],
+      "@svelte-draw/element": ["./packages/element/src/index.ts"],
+      "@svelte-draw/element/*": ["./packages/element/src/*"],
+      "@svelte-draw/fractional-indexing": ["./packages/fractional-indexing/src/index.ts"],
+      "@svelte-draw/fractional-indexing/*": ["./packages/fractional-indexing/src/*"],
+      "@svelte-draw/laser-pointer": ["./packages/laser-pointer/src/index.ts"],
+      "@svelte-draw/laser-pointer/*": ["./packages/laser-pointer/src/*"],
+      "@svelte-draw/math": ["./packages/math/src/index.ts"],
+      "@svelte-draw/math/*": ["./packages/math/src/*"],
+      "@svelte-draw/utils": ["./packages/utils/src/index.ts"],
+      "@svelte-draw/utils/*": ["./packages/utils/src/*"]
+    }
+  },
+  "include": ["packages", "svelte-draw-app/src"],
+  "exclude": ["examples", "dist", "types", "tests"]
+}

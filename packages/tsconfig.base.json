@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "emitDeclarationOnly": true,
+    "paths": {
+      "@svelte-draw/common": ["./common/src/index.ts"],
+      "@svelte-draw/common/*": ["./common/src/*"],
+      "@svelte-draw/element": ["./element/src/index.ts"],
+      "@svelte-draw/element/*": ["./element/src/*"],
+      "@svelte-draw/editor": ["./editor/index.ts"],
+      "@svelte-draw/editor/*": ["./editor/*"],
+      "@svelte-draw/laser-pointer": ["./laser-pointer/src/index.ts"],
+      "@svelte-draw/laser-pointer/*": ["./laser-pointer/src/*"],
+      "@svelte-draw/math": ["./math/src/index.ts"],
+      "@svelte-draw/math/*": ["./math/src/*"],
+      "@svelte-draw/utils": ["./utils/src/index.ts"],
+      "@svelte-draw/utils/*": ["./utils/src/*"],
+      "@svelte-draw/fractional-indexing": ["./fractional-indexing/src/index.ts"],
+      "@svelte-draw/fractional-indexing/*": ["./fractional-indexing/src/*"]
+    }
+  }
+}

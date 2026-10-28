@@ -1,0 +1,45 @@
+import { vi } from "vitest";
+
+import { reseed } from "@svelte-draw/common";
+
+import { SvelteDraw } from "../index";
+import * as StaticScene from "../renderer/staticScene";
+import { render, queryByTestId, unmountComponent } from "../tests/test-utils";
+
+const renderStaticScene = vi.spyOn(StaticScene, "renderStaticScene");
+
+describe("Test <App/>", () => {
+  beforeEach(async () => {
+    unmountComponent();
+    localStorage.clear();
+    renderStaticScene.mockClear();
+    reseed(7);
+  });
+
+  it("should show error modal when using brave and measureText API is not working", async () => {
+    (global.navigator as any).brave = {
+      isBrave: {
+        name: "isBrave",
+      },
+    };
+
+    const originalContext = global.HTMLCanvasElement.prototype.getContext("2d");
+    //@ts-ignore
+    global.HTMLCanvasElement.prototype.getContext = () => {
+      return {
+        ...originalContext,
+        measureText: () => ({
+          width: 0,
+        }),
+      };
+    };
+
+    await render(SvelteDraw, { props: {} });
+    expect(
+      queryByTestId(
+        document.querySelector(".excalidraw-modal-container")!,
+        "brave-measure-text-error",
+      ),
+    ).toMatchSnapshot();
+  });
+});
