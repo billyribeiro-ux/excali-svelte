@@ -41,6 +41,8 @@ import type {
 } from "@svelte-draw/element/types";
 
 import { createTestHook } from "../../components/App";
+import { waitFor } from "@testing-library/dom";
+
 import { getTextEditor, TEXT_EDITOR_SELECTOR } from "../queries/dom";
 import { act, fireEvent, GlobalTestState, screen } from "../test-utils";
 
@@ -583,6 +585,13 @@ export class UI {
     if (!editor) {
       throw new Error("Can't find wysiwyg text editor in the dom");
     }
+
+    // the editor arms its blur-to-submit handler in a deferred task (it may
+    // already hold focus before that); blurring earlier would not submit it
+    await waitFor(() => {
+      expect(document.activeElement).toBe(editor);
+      expect(editor.onblur).not.toBeNull();
+    });
 
     fireEvent.input(editor, { target: { value: text } });
     act(() => {

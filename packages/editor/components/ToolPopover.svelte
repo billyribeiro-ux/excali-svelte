@@ -51,9 +51,18 @@
   // the popup is anchored to the toggle button
   let buttonEl = $state<HTMLButtonElement | null>(null);
 
-  // if currentType is not in options, close popup
+  // If the active tool moves outside of the options, close the popup. Only
+  // reacts to the tool/options changing, not to the popup opening: the toggle
+  // opens it before the editor commits the tool change it triggers, so the
+  // still-stale tool would otherwise close it right away.
+  let checkedType: string | undefined;
+  let checkedOptions: typeof options | undefined;
   $effect.pre(() => {
-    if (!options.some((o) => o.type === currentType) && isPopupOpen) {
+    const type = currentType;
+    const changed = type !== checkedType || options !== checkedOptions;
+    checkedType = type;
+    checkedOptions = options;
+    if (changed && !options.some((o) => o.type === type)) {
       isPopupOpen = false;
     }
   });
