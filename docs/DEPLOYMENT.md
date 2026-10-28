@@ -18,7 +18,7 @@ docker run --rm -p 8080:80 svelte-draw      # http://localhost:8080
 docker compose up --build                   # same, port 8080
 ```
 
-The image is multi-stage: `node:26.12.1-alpine` with pnpm provisioned by corepack from the `packageManager` pin, then `pnpm install --frozen-lockfile` and `pnpm build`, then `nginx:stable-alpine-slim` serving the build with `infra/nginx.conf` (installed as `conf.d/default.conf`). Base images are pinned by tag only (no digest was verified). `VITE_*` variables are inlined at **build time**, so pass them as build args/env in the build stage (the Dockerfile does not declare any `ARG`s yet; add `ARG VITE_APP_...` and `ENV` lines for the ones you need).
+The image is multi-stage: `node:26-alpine` (the Node 26 LTS line; pin `26.13.0-alpine` once that image is published) with pnpm provisioned by corepack from the `packageManager` pin, then `pnpm install --frozen-lockfile` and `pnpm build`, then `nginx:stable-alpine-slim` serving the build with `infra/nginx.conf` (installed as `conf.d/default.conf`). Base images are pinned by tag only (no digest was verified). `VITE_*` variables are inlined at **build time**, so pass them as build args/env in the build stage (the Dockerfile does not declare any `ARG`s yet; add `ARG VITE_APP_...` and `ENV` lines for the ones you need).
 
 ### nginx / headers
 
