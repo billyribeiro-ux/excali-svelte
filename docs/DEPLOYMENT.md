@@ -1,8 +1,6 @@
 # Deployment
 
-`pnpm build` produces a fully static site in **`svelte-draw-app/build`** (`@sveltejs/adapter-static`, configured in
-`svelte-draw-app/vite.config.ts`; `src/routes/+layout.ts` sets `prerender = true`). Any static host works as long as
-unknown paths fall back to `index.html` and hashed assets under `/_app/immutable/` are cacheable.
+`pnpm build` produces a fully static site in **`svelte-draw-app/build`** (`@sveltejs/adapter-static`, configured in `svelte-draw-app/vite.config.ts`; `src/routes/+layout.ts` sets `prerender = true`). Any static host works as long as unknown paths fall back to `index.html` and hashed assets under `/_app/immutable/` are cacheable.
 
 ## Options provided in this repo
 
@@ -20,29 +18,19 @@ docker run --rm -p 8080:80 svelte-draw      # http://localhost:8080
 docker compose up --build                   # same, port 8080
 ```
 
-The image is multi-stage: `node:24.22.1-alpine` with pnpm provisioned by corepack from the `packageManager` pin, then
-`pnpm install --frozen-lockfile` and `pnpm build`, then `nginx:stable-alpine-slim` serving the build with
-`infra/nginx.conf` (installed as `conf.d/default.conf`). Base images are pinned by tag only (no digest was
-verified). `VITE_*` variables are inlined at **build time**, so pass them as build args/env in the build stage
-(the Dockerfile does not declare any `ARG`s yet; add `ARG VITE_APP_...` and `ENV` lines for the ones you need).
+The image is multi-stage: `node:26.12.1-alpine` with pnpm provisioned by corepack from the `packageManager` pin, then `pnpm install --frozen-lockfile` and `pnpm build`, then `nginx:stable-alpine-slim` serving the build with `infra/nginx.conf` (installed as `conf.d/default.conf`). Base images are pinned by tag only (no digest was verified). `VITE_*` variables are inlined at **build time**, so pass them as build args/env in the build stage (the Dockerfile does not declare any `ARG`s yet; add `ARG VITE_APP_...` and `ENV` lines for the ones you need).
 
 ### nginx / headers
 
-`infra/nginx.conf` (and `vercel.json`) set `X-Content-Type-Options: nosniff`, `Referrer-Policy: origin` and
-`Cache-Control: public, max-age=31536000, immutable` for `/_app/immutable/*`. The nginx file also sends
-`no-cache` for `index.html`, `/_app/version.json` and `/service-worker.js` (the latter only matters if the
-build emits one) and falls back to `index.html` for unknown paths. The old Excalidraw-specific
-`Access-Control-Allow-Origin: https://excalidraw.com`, `Feature-Policy: *`, and redirects are intentionally gone.
+`infra/nginx.conf` (and `vercel.json`) set `X-Content-Type-Options: nosniff`, `Referrer-Policy: origin` and `Cache-Control: public, max-age=31536000, immutable` for `/_app/immutable/*`. The nginx file also sends `no-cache` for `index.html`, `/_app/version.json` and `/service-worker.js` (the latter only matters if the build emits one) and falls back to `index.html` for unknown paths. The old Excalidraw-specific `Access-Control-Allow-Origin: https://excalidraw.com`, `Feature-Policy: *`, and redirects are intentionally gone.
 
 ### Vercel
 
-`vercel.json` sets `installCommand` (`pnpm install --frozen-lockfile`), `buildCommand` (`pnpm build`),
-`outputDirectory` (`svelte-draw-app/build`) and the headers above.
+`vercel.json` sets `installCommand` (`pnpm install --frozen-lockfile`), `buildCommand` (`pnpm build`), `outputDirectory` (`svelte-draw-app/build`) and the headers above.
 
 ## Environment variables
 
-Read via `import.meta.env` (Vite): set them in the environment (or an untracked `.env.local`) when building.
-Unset variables are `undefined`; the behaviour per variable, from source:
+Read via `import.meta.env` (Vite): set them in the environment (or an untracked `.env.local`) when building. Unset variables are `undefined`; the behaviour per variable, from source:
 
 | Variable | Read in | If unset |
 | --- | --- | --- |
@@ -60,18 +48,12 @@ Unset variables are `undefined`; the behaviour per variable, from source:
 | `VITE_APP_DISABLE_PREVENT_UNLOAD` | `collab/Collab.ts`, wrapper | the before-unload prompt stays enabled |
 | `VITE_APP_DEBUG_ENABLE_TEXT_CONTAINER_BOUNDING_BOX` | `packages/element/src/renderElement.ts` | debug box off |
 
-Collaboration, share links, library and AI all require services that this repository does not provide; see
-[COLLABORATION.md](./COLLABORATION.md).
+Collaboration, share links, library and AI all require services that this repository does not provide; see [COLLABORATION.md](./COLLABORATION.md).
 
-**Sentry.** At the time of writing, `svelte-draw-app/src/lib/app/sentry.ts` enables reporting only when
-the page hostname contains `excalidraw.com`, `staging.excalidraw.com` or `vercel.app` and
-`VITE_APP_DISABLE_SENTRY !== "true"`, and it contains a hard-coded DSN inherited from upstream. If you deploy to a `*.vercel.app`
-host, set `VITE_APP_DISABLE_SENTRY=true` (or remove that module's DSN) so errors are not sent to a project you do not own.
+**Sentry.** At the time of writing, `svelte-draw-app/src/lib/app/sentry.ts` enables reporting only when the page hostname contains `excalidraw.com`, `staging.excalidraw.com` or `vercel.app` and `VITE_APP_DISABLE_SENTRY !== "true"`, and it contains a hard-coded DSN inherited from upstream. If you deploy to a `*.vercel.app` host, set `VITE_APP_DISABLE_SENTRY=true` (or remove that module's DSN) so errors are not sent to a project you do not own.
 
-For the complete list of variables with example values see `svelte-draw-app/.env.example` if it exists in your checkout (it
-was being created by another change when this document was written).
+For the complete list of variables with example values see `svelte-draw-app/.env.example` if it exists in your checkout (it was being created by another change when this document was written).
 
 ## Verification status
 
-`pnpm build` output was inspected (`svelte-draw-app/build/index.html`, `_app/immutable/**`, fonts as hashed `.woff2`), but the Docker
-image, nginx config and Vercel config have not been exercised end to end.
+`pnpm build` output was inspected (`svelte-draw-app/build/index.html`, `_app/immutable/**`, fonts as hashed `.woff2`), but the Docker image, nginx config and Vercel config have not been exercised end to end.

@@ -2,8 +2,7 @@
 
 ## Setup
 
-Requirements: Node >= 24.22.1 and pnpm 12.15.0 (both pinned in the root `package.json`; use corepack or your
-toolchain manager). Do not use npm or yarn.
+Requirements: Node >= 26.13.0 and pnpm 12.15.0 (both pinned in the root `package.json`; use corepack or your toolchain manager). Do not use npm or yarn.
 
 ```bash
 pnpm install
@@ -21,8 +20,7 @@ pnpm dev        # SvelteKit dev server for svelte-draw-app
 | `pnpm icons` | regenerate favicons/PWA icons from `branding/*.svg` (see `branding/README.md`) |
 | `pnpm locales-coverage` | rewrite `packages/editor/locales/percentages.json` |
 
-`pnpm lint`, `pnpm format` and `pnpm format:check` are declared in `package.json`, but their configuration is **planned and
-not in place yet**; do not rely on them until it lands.
+`pnpm lint`, `pnpm format` and `pnpm format:check` are declared in `package.json`, but their configuration is **planned and not in place yet**; do not rely on them until it lands.
 
 ## Test what you changed
 
@@ -36,16 +34,12 @@ pnpm exec svelte-check --tsconfig ./tsconfig.json --output machine 2>&1 | grep "
 pnpm check                                                                  # app typecheck
 ```
 
-Run the full `pnpm test` and `pnpm build` once before you push. Never update snapshots to hide a difference;
-find out why it differs.
+Run the full `pnpm test` and `pnpm build` once before you push. Never update snapshots to hide a difference; find out why it differs.
 
 ## Conventions
 
-Read [docs/SVELTE_PORT_GUIDE.md](docs/SVELTE_PORT_GUIDE.md) before touching UI code, and [AGENTS.md](AGENTS.md) for the short rule list
-(use the editor's `ownerDocument`/`ownerWindow` instead of globals; prefer `Merge<>` for overriding types). Svelte files are
-`.svelte` / `.svelte.ts`, tests are `*.test.ts` using `@testing-library/svelte` and `vi` (not `jest`).
+Read [docs/SVELTE_PORT_GUIDE.md](docs/SVELTE_PORT_GUIDE.md) before touching UI code, and [AGENTS.md](AGENTS.md) for the short rule list (use the editor's `ownerDocument`/`ownerWindow` instead of globals; prefer `Merge<>` for overriding types). Svelte files are `.svelte` / `.svelte.ts`, tests are `*.test.ts` using `@testing-library/svelte` and `vi` (not `jest`).
 
 ## Dependencies and licensing
 
-Dependencies are pinned exactly (`save-exact=true` in `.npmrc`). New bundled fonts or assets must be recorded in
-`THIRD_PARTY_NOTICES.md` with their license. The project is MIT licensed (`LICENSE`); see `NOTICE.md` for origin.
+Dependencies are pinned exactly (`save-exact=true` in `.npmrc`). New bundled fonts or assets must be recorded in `THIRD_PARTY_NOTICES.md` with their license. The project is MIT licensed (`LICENSE`); see `NOTICE.md` for origin.

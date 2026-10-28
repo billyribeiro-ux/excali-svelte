@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # ---- build stage -----------------------------------------------------------
-FROM node:24.22.1-alpine AS build
+FROM node:26.12.1-alpine AS build
 
 # pnpm is provisioned by corepack from the "packageManager" pin in package.json.
 # HUSKY=0: the `prepare` script must not try to install git hooks in the image.

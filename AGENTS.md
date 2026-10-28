@@ -2,11 +2,10 @@
 
 ## Repository
 
-pnpm-workspaces monorepo (Node >= 24.22.1, pnpm 12.15.0; no yarn/npm):
+pnpm-workspaces monorepo (Node >= 26.13.0, pnpm 12.15.0; no yarn/npm):
 
 - `svelte-draw-app/` - SvelteKit 3 static app (adapter-static, Svelte 5, Vite 8). App code in `src/lib/app`, routes in `src/routes`.
-- `packages/editor/` - `@svelte-draw/editor`, the Svelte 5 editor (`SvelteDraw` component). Core in `components/App.ts` (plain TS class on top of
-  `editor/Editor.ts`), view in `components/{EditorHost,EditorView}.svelte` + `components/canvases/*.svelte`, render model in `components/renderModel.ts`.
+- `packages/editor/` - `@svelte-draw/editor`, the Svelte 5 editor (`SvelteDraw` component). Core in `components/App.ts` (plain TS class on top of `editor/Editor.ts`), view in `components/{EditorHost,EditorView}.svelte` + `components/canvases/*.svelte`, render model in `components/renderModel.ts`.
 - `packages/{common,element,math,utils,fractional-indexing,laser-pointer}` - framework-neutral libraries (`@svelte-draw/*`).
 - `docs/` - `ARCHITECTURE.md`, `SVELTE_PORT_GUIDE.md`, `MIGRATION_INVENTORY.md`, `COLLABORATION.md`, `DEPLOYMENT.md`.
 
@@ -35,5 +34,4 @@ pnpm exec vitest run <file-or-dir>                                        # targ
 pnpm exec svelte-check --tsconfig ./tsconfig.json --output machine 2>&1 | grep "<your path>"
 ```
 
-Test what changed; run the full suite once before pushing. `pnpm lint` / `pnpm format` configs are planned, not in place yet.
-Do not edit `package.json`, lockfiles, `tsconfig*.json`, or `vitest.config.mts` unless the task is about them.
+Test what changed; run the full suite once before pushing. `pnpm lint` / `pnpm format` configs are planned, not in place yet. Do not edit `package.json`, lockfiles, `tsconfig*.json`, or `vitest.config.mts` unless the task is about them.
