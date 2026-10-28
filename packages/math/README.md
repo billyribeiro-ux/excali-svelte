@@ -1,19 +1,9 @@
 # @svelte-draw/math
 
-## Install
+Framework-neutral TypeScript library of svelte-draw (2D math primitives (points, vectors, curves, polygons)), derived from [Excalidraw](https://github.com/excalidraw/excalidraw) (MIT).
 
-```bash
-npm install @svelte-draw/math
-```
+This is a workspace package of this repository, consumed from source via the `workspace:*` protocol; it is not published to npm. Import it from other workspace packages:
 
-If you prefer Yarn over npm, use this command to install the Excalidraw utils package:
-
-```bash
-yarn add @svelte-draw/math
-```
-
-With PNPM, similarly install the package with this command:
-
-```bash
-pnpm add @svelte-draw/math
+```ts
+import {} from "@svelte-draw/math";
 ```
