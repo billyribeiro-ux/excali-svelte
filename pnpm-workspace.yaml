@@ -7,3 +7,5 @@ allowBuilds:
   esbuild: true
   protobufjs: true
   "@parcel/watcher": false
+minimumReleaseAgeExclude:
+  - "@types/node@26.6.6"
