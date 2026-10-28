@@ -1,0 +1,11 @@
+name: svelte-draw
+
+services:
+  svelte-draw:
+    build:
+      context: .
+    image: svelte-draw:local
+    container_name: svelte-draw
+    ports:
+      - "8080:80"
+    restart: unless-stopped

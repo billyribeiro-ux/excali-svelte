@@ -1,0 +1,12 @@
+{
+  "name": "@svelte-draw/fractional-indexing",
+  "version": "3.3.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "description": "Provides functions for generating ordering strings"
+}

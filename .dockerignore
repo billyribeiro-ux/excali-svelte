@@ -1,0 +1,9 @@
+# keep the build context small; everything else is copied by `COPY . .`
+**/node_modules
+**/build
+**/dist
+**/.svelte-kit
+**/coverage
+.git
+.env.local
+.env.*.local

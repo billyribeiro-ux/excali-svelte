@@ -1,0 +1,15 @@
+{
+  "name": "@svelte-draw/math",
+  "version": "0.18.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@svelte-draw/common": "workspace:*"
+  },
+  "description": "Excalidraw math functions"
+}

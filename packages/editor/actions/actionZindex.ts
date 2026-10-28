@@ -1,0 +1,115 @@
+import { KEYS, CODES, isDarwin } from "@svelte-draw/common";
+
+import {
+  moveOneLeft,
+  moveOneRight,
+  moveAllLeft,
+  moveAllRight,
+} from "@svelte-draw/element";
+
+import { CaptureUpdateAction } from "@svelte-draw/element";
+
+import {
+  BringForwardIcon,
+  BringToFrontIcon,
+  SendBackwardIcon,
+  SendToBackIcon,
+} from "../components/icons";
+
+import SendBackwardPanel from "./panels/SendBackwardPanel.svelte";
+import BringForwardPanel from "./panels/BringForwardPanel.svelte";
+import SendToBackPanel from "./panels/SendToBackPanel.svelte";
+import BringToFrontPanel from "./panels/BringToFrontPanel.svelte";
+
+import { register } from "./register";
+
+export const actionSendBackward = register({
+  name: "sendBackward",
+  label: "labels.sendBackward",
+  keywords: ["move down", "zindex", "layer"],
+  icon: SendBackwardIcon,
+  trackEvent: { category: "element" },
+  perform: (elements, appState, value, app) => {
+    return {
+      elements: moveOneLeft(elements, appState, app.scene),
+      appState,
+      captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+    };
+  },
+  keyPriority: 40,
+  keyTest: (event) =>
+    event[KEYS.CTRL_OR_CMD] &&
+    !event.shiftKey &&
+    event.code === CODES.BRACKET_LEFT,
+  PanelComponent: SendBackwardPanel,
+});
+
+export const actionBringForward = register({
+  name: "bringForward",
+  label: "labels.bringForward",
+  keywords: ["move up", "zindex", "layer"],
+  icon: BringForwardIcon,
+  trackEvent: { category: "element" },
+  perform: (elements, appState, value, app) => {
+    return {
+      elements: moveOneRight(elements, appState, app.scene),
+      appState,
+      captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+    };
+  },
+  keyPriority: 40,
+  keyTest: (event) =>
+    event[KEYS.CTRL_OR_CMD] &&
+    !event.shiftKey &&
+    event.code === CODES.BRACKET_RIGHT,
+  PanelComponent: BringForwardPanel,
+});
+
+export const actionSendToBack = register({
+  name: "sendToBack",
+  label: "labels.sendToBack",
+  keywords: ["move down", "zindex", "layer"],
+  icon: SendToBackIcon,
+  trackEvent: { category: "element" },
+  perform: (elements, appState) => {
+    return {
+      elements: moveAllLeft(elements, appState),
+      appState,
+      captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+    };
+  },
+  keyTest: (event) =>
+    isDarwin
+      ? event[KEYS.CTRL_OR_CMD] &&
+        event.altKey &&
+        event.code === CODES.BRACKET_LEFT
+      : event[KEYS.CTRL_OR_CMD] &&
+        event.shiftKey &&
+        event.code === CODES.BRACKET_LEFT,
+  PanelComponent: SendToBackPanel,
+});
+
+export const actionBringToFront = register({
+  name: "bringToFront",
+  label: "labels.bringToFront",
+  keywords: ["move up", "zindex", "layer"],
+  icon: BringToFrontIcon,
+  trackEvent: { category: "element" },
+
+  perform: (elements, appState) => {
+    return {
+      elements: moveAllRight(elements, appState),
+      appState,
+      captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+    };
+  },
+  keyTest: (event) =>
+    isDarwin
+      ? event[KEYS.CTRL_OR_CMD] &&
+        event.altKey &&
+        event.code === CODES.BRACKET_RIGHT
+      : event[KEYS.CTRL_OR_CMD] &&
+        event.shiftKey &&
+        event.code === CODES.BRACKET_RIGHT,
+  PanelComponent: BringToFrontPanel,
+});

@@ -1,0 +1,9 @@
+packages:
+  - svelte-draw-app
+  - packages/*
+shamefullyHoist: true
+allowBuilds:
+  core-js: true
+  esbuild: true
+  protobufjs: true
+  "@parcel/watcher": false

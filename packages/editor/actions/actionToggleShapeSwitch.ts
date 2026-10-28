@@ -1,0 +1,35 @@
+import { CaptureUpdateAction } from "@svelte-draw/element";
+
+import type { ExcalidrawElement } from "@svelte-draw/element/types";
+
+import {
+  getConversionTypeFromElements,
+  convertElementTypePopupAtom,
+} from "../components/ConvertElementTypePopup";
+import { editorJotaiStore } from "../editor-jotai";
+
+import { register } from "./register";
+
+export const actionToggleShapeSwitch = register({
+  name: "toggleShapeSwitch",
+  label: "labels.shapeSwitch",
+  icon: () => ({ html: "" }),
+  viewMode: true,
+  trackEvent: {
+    category: "shape_switch",
+    action: "toggle",
+  },
+  keywords: ["change", "switch", "swap"],
+  perform() {
+    editorJotaiStore.set(convertElementTypePopupAtom, {
+      type: "panel",
+    });
+
+    return {
+      captureUpdate: CaptureUpdateAction.NEVER,
+    };
+  },
+  checked: (appState) => appState.gridModeEnabled,
+  predicate: (elements) =>
+    getConversionTypeFromElements(elements as ExcalidrawElement[]) !== null,
+});

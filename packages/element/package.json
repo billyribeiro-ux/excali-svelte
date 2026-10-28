@@ -1,0 +1,21 @@
+{
+  "name": "@svelte-draw/element",
+  "version": "0.18.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@svelte-draw/common": "workspace:*",
+    "@svelte-draw/fractional-indexing": "workspace:*",
+    "@svelte-draw/math": "workspace:*",
+    "lodash.throttle": "4.1.1",
+    "perfect-freehand": "1.2.0",
+    "points-on-curve": "1.0.1",
+    "roughjs": "4.6.4"
+  },
+  "description": "Excalidraw elements-related logic"
+}
