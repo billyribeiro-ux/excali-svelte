@@ -1,23 +1,9 @@
-# Laser Pointer
+# @svelte-draw/laser-pointer
 
-## Usage
+Framework-neutral TypeScript library of svelte-draw (laser pointer trail algorithm), derived from [Excalidraw](https://github.com/excalidraw/excalidraw) (MIT).
 
-    import { LaserPointer } from '@svelte-draw/laser-pointer'
+This is a workspace package of this repository, consumed from source via the `workspace:*` protocol; it is not published to npm. Import it from other workspace packages:
 
-    const stroke = new LaserPointer(options)
-
-    stroke.addPoint([100, 200, 1])
-    stroke.close()
-
-    const outline = stroke.getStrokeOutline()
-
-## Options
-
-| Property | Type | Default | Description |
-| --- | --- | --- | --- |
-| `size` | `number` | `2` | Radius of the stroke. |
-| `streamline` | `number` | `0.42` | Interpolate input points to reduce jitter. |
-| `simplify` | `number` | `0.1` | Reduce stroke size by sacrificing precision. |
-| `simplifyPhase` | `"input" \| "output" \| "tail" ` | `"output"` | Decides when the simplification algorithm should be applied. |
-| `sizeMapping` | `(details: SizeMappingDetails) => number` | `() => 1` | Maps each point to a value between `0.0` and `1.0`. |
-| `keepHead` | `boolean` | `false` | Whether size mapping should influence the head of the stroke. |
+```ts
+import {} from "@svelte-draw/laser-pointer";
+```
